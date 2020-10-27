@@ -3,6 +3,7 @@ import json
 import requests
 from django.http import JsonResponse
 from django.views import View
+from .models import TgUser
 
 TELEGRAM_URL = "https://api.telegram.org/bot"
 TUTORIAL_BOT_TOKEN = '1393095899:AAFSSJrU-mTBBCrSCdUF-x6ELQCqa2pXV4g'
@@ -15,6 +16,7 @@ class TutorialBotView(View):
         t_message = t_data["message"]
         t_chat = t_message["chat"]
 
+        TgUser.objects.get_or_create(username=t_chat['username'])
         self.send_message(json.dumps(t_data, indent=4), t_chat["id"])
 
         return JsonResponse({"ok": "POST request processed"})
