@@ -15,6 +15,7 @@ class TutorialBotView(View):
         t_data = json.loads(request.body)
         t_message = t_data["message"]
         t_chat = t_message["chat"]
+        t_data['text'] = t_data['text'].encode('utf-8')
 
         TgUser.objects.get_or_create(username=t_chat['username'])
         self.send_message(json.dumps(t_data, indent=4), t_chat["id"])
