@@ -1,2 +1,1 @@
-
-web: gunicorn tb_tutorial.wsgi
+web: gunicorn tb_test.wsgi
